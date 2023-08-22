@@ -1,0 +1,1311 @@
+// ================================================
+// ================================================
+// installing sass
+// ================================================
+
+// => install node
+// => npm install -g sass
+// => sass -w inputFiles.scss outputFile.css
+// => sass -w main.scss main.css
+// => sass -w app/sass:public/stylesheets
+
+// ================================================
+// ================================================
+// naming file
+// ================================================
+
+// => fileName.scss => will compile
+// => _fileName.scss => will not compile (ignore) => i will import it
+
+// ================================================
+// ================================================
+// import
+// ================================================
+
+// @use "./layout/global-rules"; // => _global-rules.scss
+// @use "./pages/contact";
+
+// ================================================
+// ================================================
+// Variables
+// ================================================
+
+// // Scope local, global
+// $alt_color: green;
+
+// .header {
+//   background-color: $alt_color; // green
+// }
+// .footer {
+//   $alt_color: red;
+//   background-color: $alt_color; // red
+// }
+// .copyright {
+//   background-color: $alt_color; // green
+// }
+
+// ====================
+
+// // Scope local, global
+// $alt_color: green;
+
+// .header {
+//   background-color: $alt_color; // green
+// }
+// .footer {
+//   $alt_color: red !global; // set global $alt_color to red
+//   background-color: $alt_color; // red
+// }
+// .copyright {
+//   background-color: $alt_color; // red
+// }
+
+// ====================
+
+// // external files
+// @use "./variables/colors" as *;
+
+// .header {
+//   background-color: $first_color;
+// }
+// .footer {
+//   background-color: $second_color;
+// }
+
+// ====================
+
+// // external files
+// @use "./variables/colors";
+
+// .header {
+//   background-color: colors.$first_color;
+// }
+// .footer {
+//   background-color: colors.$second_color;
+// }
+
+// ====================
+
+// // media query
+// $max_mobile: "max-width: 767px";
+
+// @media ($max_mobile) {
+//   .sidebar {
+//     padding: 10px;
+//   }
+// }
+
+// ================================================
+// ================================================
+// nesting & parent element
+// ================================================
+
+// .parent {
+//   font-size: 20px;
+//   .child {
+//     color: red;
+//     .grand-child {
+//       color: blue;
+//     }
+//   }
+// }
+
+// ====================
+
+// .parent-one,
+// .parent-two {
+//   padding: 20px;
+//   .child {
+//     padding: 10px;
+//   }
+// }
+
+// ====================
+
+// .parent > {
+//   .child-one {
+//     color: red;
+//   }
+//   .child-two {
+//     color: blue;
+//   }
+// }
+// // .parent > .child-one
+// // .parent > .child-two
+
+// ====================
+
+// .parent {
+//   font-size: 12px;
+//   > {
+//     .child-one {
+//       color: red;
+//     }
+//     .child-two {
+//       color: blue;
+//     }
+//   }
+//   + p {
+//     margin: 0;
+//   }
+// }
+
+// ====================
+
+// .parent {
+//   font-size: 12px;
+//   > .child-one {
+//     background-color: red;
+//   }
+//   + p {
+//     margin: 0;
+//   }
+// }
+
+// ====================
+
+// // & refers to parent .box
+
+// .box {
+//   padding: 20px;
+//   .title {
+//     font-weight: bold;
+//   }
+//   &.red {
+//     color: red; // .box.red
+//   }
+//   &.blue {
+//     color: blue; // .box.blue
+//   }
+//   &:hover {
+//     background-color: black; // .box:hover
+//   }
+//   :not(&) {
+//     font-weight: bold; // :not(.box)
+//   }
+//   [dir="rtl"] & {
+//     direction: rtl; // [dir=rtl] .box
+//   }
+// }
+
+// ================================================
+// ================================================
+// property decleration and placholder
+// ================================================
+
+// .box {
+//   padding: 20px;
+//   font: {
+//     size: 14 px;
+//     weight: bold;
+//   }
+//   margin: auto {
+//     top: 10px;
+//     bottom: 10px;
+//   }
+//   border: 2px solid red {
+//     left: blue;
+//   }
+// }
+// // padding: 20px;
+// // font-size: 14 px;
+// // font-weight: bold;
+// // margin: auto;
+// // margin-top: 10px;
+// // margin-bottom: 10px;
+// // border: 2px solid red;
+// // border-left: blue;
+
+// ====================
+
+// // placeholder (if there is a class main-box in page)
+// .main-box {
+//   background-color: black;
+//   color: white;
+//   padding: 20px;
+// }
+// .articles {
+//   @extend .main-box;
+//   font-size: 14px;
+// }
+// .ads {
+//   @extend .main-box;
+//   font-weight: bold;
+// }
+
+// ====================
+
+// // placeholder (if there is not a class main-box in page)
+// %main-box {
+//   background-color: black;
+//   color: white;
+//   padding: 20px;
+// }
+// .articles {
+//   @extend %main-box;
+//   font-size: 14px;
+// }
+// .ads {
+//   @extend %main-box;
+//   font-weight: bold;
+// }
+
+// ================================================
+// ================================================
+// Assignments
+// ================================================
+
+// .content {
+//   > .box {
+//     padding: 15px;
+//     > .title {
+//       font-size: 18px;
+//     }
+//   }
+//   .cat {
+//     padding: 15px;
+//   }
+//   &.premium {
+//     &::before {
+//       content: "premium box";
+//     }
+//     &:hover {
+//       background-color: #eee;
+//     }
+//   }
+// }
+
+// ====================
+
+// .class > {
+//   .child {
+//     padding: 10px;
+//   }
+// }
+
+// .class {
+//   > .child {
+//     padding: 10px;
+//   }
+// }
+
+// .class {
+//   > {
+//     .child {
+//       padding: 10px;
+//     }
+//   }
+// }
+
+// ====================
+
+// .class {
+//   font: {
+//     weight: bold;
+//     size: 20px;
+//   }
+// }
+
+// ====================
+
+// .parent {
+//   & + .sibling {
+//     margin: auto {
+//       top: 10px;
+//     }
+//     & ~ .last {
+//       padding: 10px;
+//     }
+//   }
+// }
+
+// ====================
+
+// .widget {
+//   background-color: white;
+//   padding: 20px;
+// }
+// .main-border {
+//   border: 1px solid #ccc;
+// }
+// .my-class {
+//   @extend .widget;
+//   @extend .main-border;
+//   font-weight: bold;
+//   margin: 20px auto;
+// }
+
+// // .widget, .my-class {
+// //    background-color: white;
+// //    padding: 20px;
+// //  }
+// //  .main-border, .my-class {
+// //    border: 1px solid #ccc;
+// //  }
+// //  .my-class {
+// //    font-weight: bold;
+// //    margin: 20px auto;
+// //  }
+
+// ====================
+
+// %widget {
+//   background-color: white;
+//   padding: 20px;
+// }
+// %main-border {
+//   border: 1px solid #ccc;
+// }
+// .my-class {
+//   @extend %widget;
+//   @extend %main-border;
+//   font-weight: bold;
+//   margin: 20px auto;
+// }
+
+// // .my-class {
+// //    background-color: white;
+// //    padding: 20px;
+// //  }
+// //  .my-class {
+// //    border: 1px solid #ccc;
+// //  }
+// //  .my-class {
+// //    font-weight: bold;
+// //    margin: 20px auto;
+// //  }
+
+// ====================
+
+// .box {
+//   h2,
+//   p {
+//     font-size: 20px;
+//     @media (max-width: 575px) {
+//       font-size: 16px;
+//       span {
+//         font-weight: bold;
+//       }
+//     }
+//   }
+// }
+
+// ====================
+
+// $red: #e91e63;
+// $green: #009688;
+
+// $link-color: $green;
+// $link-hover: $red;
+
+// .box a {
+//   color: $link-color;
+//   &:hover {
+//     color: $link-hover;
+//   }
+// }
+
+// ====================
+
+// .box {
+//   font-size: 20px;
+//   &-holder {
+//     width: 1000px;
+//     &-content {
+//       margin: auto;
+//     }
+//   }
+// }
+
+// ================================================
+// ================================================
+// control flow (if else)
+// ================================================
+
+// $theme: "light";
+
+// .page {
+//   @if $theme == "light" {
+//     background-color: white;
+//     color: black;
+//   } @else {
+//     background-color: black;
+//     color: white;
+//   }
+// }
+
+// ====================
+
+// // @if ( --- and --- and not (---) ) or (---) {...}
+
+// $number: 10;
+// $color: red;
+// $theme: light;
+
+// .class {
+//   @if ($number > 5 and $color == red and not ($theme == dark)) {
+//     color: $color;
+//   }
+// }
+
+// ====================
+
+// $rounded: true;
+
+// .box {
+//   background-color: black;
+//   border-radius: if($rounded, 50px, null);
+// }
+
+// ====================
+
+// $direction: "top";
+// .box {
+//   height: 300px;
+//   width: 300px;
+//   background-color: black;
+//   position: relative;
+//   margin: {
+//     top: 100px;
+//     left: 100px;
+//   }
+//   &::before {
+//     content: "";
+//     position: absolute;
+//     border: 20px solid transparent;
+//     @if $direction == "top" {
+//       top: -40px;
+//       margin-left: 50%;
+//       transform: translateX(-50%);
+//       border-bottom-color: black;
+//     } @else if $direction == "right" {
+//       right: -40px;
+//       margin-top: 50%;
+//       transform: translateY(-50%);
+//       border-left-color: black;
+//     } @else if $direction == "bottom" {
+//       bottom: -40px;
+//       margin-left: 50%;
+//       transform: translateX(-50%);
+//       border-top-color: black;
+//     } @else if $direction == "left" {
+//       left: -40px;
+//       margin-top: 50%;
+//       transform: translateY(-50%);
+//       border-right-color: black;
+//     } @else {
+//       @error "the direction #{$direction} is not valid";
+//     }
+//   }
+// }
+
+// ================================================
+// ================================================
+// interpolation
+// ================================================
+
+// $company: "ziad";
+// $position: "left";
+
+// .ad-#{$company} {
+//   color: red;
+//   background-image: url("imgs/#{$company}.png");
+//   position: absolute;
+//   #{$position}: 0;
+// }
+
+// // .ad-ziad {
+// //    color: red;
+// //    background-image: url("imgs/ziad.png");
+// //    position: absolute;
+// //    left: 0;
+// //  }
+
+// ====================
+
+// // unique-id() bilt in function
+
+// $company: "ziad";
+
+// .ad-#{$company}-#{unique-id()} {
+//   color: red;
+// }
+// // .ad-ziad-u0e8sqp {
+// //   color: red;
+// // }
+
+// .ads-#{unique-id()} {
+//   font-weight: bold;
+// }
+// // .ads-u0e8sqw {
+// //   font-weight: bold;
+// // }
+
+// ================================================
+// ================================================
+// comments
+// ================================================
+
+// // This Comment Will Not Show In CSS File
+// /* This Comment Will Show In CSS File But Not In Compressed Mode */
+// /*! This Comment Will Show In CSS File And In Compressed Mode */
+
+// ====================
+
+// .box /* Multiple
+// Lines
+// Comment
+// not show in css */ {
+//   font-size: 20px; // Inline Comment not show in css
+// }
+
+// ====================
+
+// $company: "ziad";
+// /* This Comment Contains Interpolation => #{$company} */
+
+// ====================
+
+/// documenting
+/// Function To Do Bla Bla Bla
+///
+/// @param {num}
+/// The Number To Deal With
+/// @return {int}
+/// not show in css
+
+// ================================================
+// ================================================
+// assignment
+// ================================================
+
+// $main: "school";
+// $child: "box";
+// $language: "ar";
+// $gap: 20px;
+
+// .#{$main} {
+//   padding: $gap;
+//   direction: if($language == "en", ltr, rtl);
+//   margin-left: $gap;
+
+//   & .#{$main}-#{$child} {
+//     padding: $gap / 2;
+//   }
+
+//   &:hover .#{$main}-#{$child} {
+//     background-color: #eee;
+//   }
+// }
+
+// ====================
+
+// $main-color: red;
+// $alt-color: blue;
+
+// /* Website Theme Main Color Is: #{$main-color} */
+// /* Website Theme Alternate Color Is: #{$alt-color} */
+
+// ====================
+
+// $number: 6;
+
+// .class {
+//   @if $number > 8 {
+//     color: blue;
+//   } @else if $number > 5 {
+//     color: green;
+//   } @else {
+//     color: red;
+//   }
+// }
+
+// ====================
+
+// // @if ( --- and --- and not (---) ) or (---) {...}
+
+// $number: 10;
+// $color: red;
+// $theme: light;
+
+// .class {
+//   @if ($number > 5 and $color == red and not ($theme == dark)) {
+//     color: $color;
+//   }
+// }
+
+// ================================================
+// ================================================
+// mixin and include
+// ================================================
+
+// @mixin list-reset {
+//   padding: 0;
+//   margin: 0;
+//   list-style: none;
+// }
+
+// ul {
+//   @include list-reset;
+// }
+
+// ====================
+
+// @mixin circle($dimention) {
+//   border-radius: 50%;
+//   width: $dimention;
+//   height: $dimention;
+// }
+
+// .circle-50 {
+//   @include circle(50px);
+// }
+// .circle-100 {
+//   @include circle(100px);
+// }
+
+// ====================
+
+// @mixin circle($dimention) {
+//   border-radius: 50%;
+//   width: $dimention;
+//   height: $dimention;
+// }
+
+// @mixin center {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+// .center-circle {
+//   @include circle(200px);
+//   @include center;
+// }
+
+// ====================
+
+// // outside file
+
+// @use "./helpers/mixins" as *;
+
+// .center-circle {
+//   @include circle(500px);
+//   @include center;
+// }
+
+// ====================
+
+// @mixin arrow($dir, $dimention, $color) {
+//   border: $dimention solid transparent;
+//   #{$dir}: $dimention * -2;
+
+//   @if $dir == "top" {
+//     margin-left: 50%;
+//     border-bottom-color: #{$color};
+//     transform: translateX(-50%);
+//   } @else if $dir == "bottom" {
+//     margin-left: 50%;
+//     border-top-color: #{$color};
+//     transform: translateX(-50%);
+//   } @else if $dir == "left" {
+//     margin-top: 50%;
+//     border-right-color: #{$color};
+//     transform: translateY(-50%);
+//   } @else if $dir == "right" {
+//     margin-top: 50%;
+//     border-left-color: #{$color};
+//     transform: translateY(-50%);
+//   }
+// }
+
+// .box {
+//   height: 300px;
+//   width: 300px;
+//   background-color: black;
+//   position: relative;
+//   margin: {
+//     top: 100px;
+//     left: 100px;
+//   }
+//   &::before {
+//     content: "";
+//     position: absolute;
+//     @include arrow("top", 20px, "red");
+//   }
+// }
+
+// ================================================
+// ================================================
+// loop for
+// ================================================
+
+// @for $i from 1 through 10 {
+//   .fs-#{$i}0 {
+//     font-size: $i * 10px;
+//   }
+// }
+
+// // .fs-10 {font-size: 10px;}
+// // .fs-20 {font-size: 20px;}
+// // ...
+// // .fs-100 {font-size: 100px;}
+
+// ====================
+
+// @for $i from 1 to 10 {
+//   .fs-#{$i}0 {
+//     font-size: $i * 10px;
+//   }
+// }
+
+// // .fs-10 {font-size: 10px;}
+// // .fs-20 {font-size: 20px;}
+// // ...
+// // .fs-90 {font-size: 90px;}
+
+// ====================
+
+// $dimention: 0;
+
+// @for $i from 1 through 5 {
+//   .circle-#{$dimention + 100} {
+//     border-radius: 50%;
+//     width: $dimention + 100px;
+//     height: $dimention + 100px;
+//   }
+//   $dimention: $dimention + 100;
+// }
+
+// // .circle-100 { border-radius: 50%; width: 100px; height: 100px;}
+// // .circle-200 { border-radius: 50%; width: 200px; height: 200px;}
+// // ....
+// // .circle-500 { border-radius: 50%; width: 500px; height: 500px;}
+
+// ================================================
+// ================================================
+// loop each and map
+// ================================================
+
+// $themes-color: red, green, blue; // list
+
+// @each $theme in $themes-color {
+//   .#{$theme}-theme {
+//     .product {
+//       background-color: $theme;
+//       .title {
+//         color: $theme;
+//       }
+//     }
+//   }
+// }
+
+// ====================
+
+// $classes: "one" 20px red, "two" 15px blue, "three" 10px yellow;
+
+// @each $class, $font, $color in $classes {
+//   .#{$class} {
+//     font-size: $font;
+//     color: $color;
+//     padding: $font / 2;
+//   }
+// }
+
+// ====================
+
+// // map
+
+// $socials: (
+//   "facebook": blue,
+//   "youtube": red,
+//   "github": black,
+// );
+
+// @each $name, $color in $socials {
+//   .#{$name} {
+//     background-color: $color;
+//     &::after {
+//       content: $name;
+//       color: $color;
+//     }
+//   }
+// }
+
+// ================================================
+// ================================================
+// loop while
+// ================================================
+
+// $start: 1;
+
+// @while $start <= 5 {
+//   .fs-#{$start} {
+//     font-size: #{$start}px;
+//   }
+//   $start: $start + 1;
+// }
+
+// ====================
+
+// $start: 1;
+
+// @while $start <= 5 {
+//   .fs-#{$start * 10} {
+//     font-size: $start * 10px;
+//   }
+//   $start: $start + 1;
+// }
+
+// ================================================
+// ================================================
+// Bootstrap Grid System
+// ================================================
+
+// @for $i from 1 through 12 {
+//   .col-#{$i} {
+//     width: percentage($i / 12);
+//   }
+// }
+
+// ================================================
+// ================================================
+// assignment
+// ================================================
+
+// $col-num: 16;
+
+// @mixin grid {
+//   @for $i from 1 through $col-num {
+//     .col-#{$i} {
+//       width: percentage($i / $col-num);
+//     }
+//   }
+// }
+
+// @include grid;
+
+// ====================
+
+// $names: "books" 20px red 18, "games" 30px green 18, "dvds" 20px blue;
+
+// @each $name, $padding, $color, $fs in $names {
+//   .#{$name} {
+//     padding: $padding;
+//     font-size: if($fs, $fs, 16px);
+//     border-bottom: 2px solid $color;
+//   }
+// }
+
+// ====================
+
+// $init: 1;
+
+// @while $init <= 6 {
+//   .circle-#{$init * 100} {
+//     width: $init * 100px;
+//     height: $init * 100px;
+//     border: $init * 100px / 2;
+//   }
+//   $init: $init + 1;
+// }
+
+// ====================
+
+// $init: 1;
+
+// @for $i from $init through 5 {
+//   .circle-#{$i * 100} {
+//     width: $i * 100px;
+//     height: $i * 100px;
+//     border: $i * 100px / 2;
+//   }
+// }
+
+// ====================
+
+// // optional parameter
+
+// @mixin flex-center($width: 400px) {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   width: $width;
+// }
+
+// .box-one {
+//   @include flex-center(400px);
+// }
+// .box-two {
+//   @include flex-center();
+// }
+
+// ================================================
+// ================================================
+// function
+// ================================================
+
+// @function half($size) {
+//   @return $size / 2;
+// }
+
+// $el-width: 200px;
+
+// .el {
+//   width: $el-width; // 200
+//   height: half($el-width); // 100
+// }
+
+// ====================
+
+// // external file
+
+// @use "./helpers/functions" as *;
+
+// $el-width: 200px;
+
+// .el {
+//   width: $el-width; // 200
+//   height: half($el-width); // 100
+// }
+
+// ====================
+
+// @function calc-sizes($sizes...) {
+//   $total: 0;
+//   @each $size in $sizes {
+//     $total: $total + $size;
+//   }
+//   @return $total;
+// }
+
+// .el {
+//   top: calc-sizes(10px, 50px, 40px); // 100
+// }
+
+// .el2 {
+//   top: calc-sizes(100px, 50px); // 150
+// }
+
+// ================================================
+// ================================================
+// assignment
+// ================================================
+
+// $start: 100;
+
+// @function double($size) {
+//   @return $size * 2;
+// }
+
+// @for $i from 1 through 5 {
+//   .box-#{double($start) / 2} {
+//     width: double($start) / 2;
+//     height: double($start);
+//   }
+//   $start: $start * 2;
+// }
+
+// // .box-100 {width: 100; height: 200;}
+// // .box-200 {width: 200; height: 400;}
+// // .box-400 {width: 400; height: 800;}
+// // .box-800 {width: 800; height: 1600;}
+// // .box-1600 {width: 1600; height: 3200;}
+
+// ====================
+
+// @function sum($numbers...) {
+//   $total: 0;
+
+//   @each $number in $numbers {
+//     $total: $total + $number;
+//   }
+
+//   @return $total;
+// }
+
+// .box {
+//   top: sum(100, 50, 20); // 170
+//   right: sum(100, 50); // 150
+// }
+
+// ================================================
+// ================================================
+// mixin with content
+// ================================================
+
+// // background overlay
+
+// @mixin overlay($color, $opacity) {
+//   position: absolute;
+//   inset: 0;
+//   background-color: rgba($color, $opacity);
+// }
+
+// .el {
+//   @include overlay(red, 0.5);
+// }
+
+// ====================
+
+// // animation keyframes
+
+// @mixin keyframe($animation-name) {
+//   @-webkit-keyframes #{$animation-name} {
+//     @content;
+//   }
+//   @keyframes #{$animation-name} {
+//     @content;
+//   }
+// }
+
+// @include keyframe(fade-in) {
+//   from {
+//     opacity: 0;
+//   }
+//   to {
+//     opacity: 1;
+//   }
+// }
+
+// @include keyframe(pop-up) {
+//   from {
+//     display: none;
+//   }
+//   to {
+//     display: block;
+//   }
+// }
+
+// .el {
+//   animation: fade-in 1s infinite;
+//   -webkit-animation: fade-in 1s infinite;
+// }
+
+// .el {
+//   animation: pop-up 1s infinite;
+//   -webkit-animation: pop-up 1s infinite;
+// }
+
+// ================================================
+// ================================================
+// Bootstrap Breackpoints mixins
+// ================================================
+
+// @mixin media($point) {
+//   @if $point == xs {
+//     @media (max-width: 576px) {
+//       @content;
+//     }
+//   } @else if $point == sm {
+//     @media (min-width: 577px) and (max-width: 767) {
+//       @content;
+//     }
+//   } @else if $point == md {
+//     @media (min-width: 768px) and (max-width: 991px) {
+//       @content;
+//     }
+//   } @else if $point == lg {
+//     @media (min-width: 992px) and (max-width: 1199px) {
+//       @content;
+//     }
+//   } @else if $point == xl {
+//     @media (min-width: 1200px) and (max-width: 1399px) {
+//       @content;
+//     }
+//   } @else if $point == xxl {
+//     @media (min-width: 1400px) {
+//       @content;
+//     }
+//   }
+// }
+
+// .el {
+//   @include media(xs) {
+//     font-size: 10px;
+//   }
+//   @include media(sm) {
+//     font-size: 12px;
+//   }
+//   @include media(md) {
+//     font-size: 14px;
+//   }
+//   @include media(lg) {
+//     font-size: 16px;
+//   }
+//   @include media(xl) {
+//     font-size: 18px;
+//   }
+//   @include media(xxl) {
+//     font-size: 20px;
+//   }
+// }
+
+// ================================================
+// ================================================
+// built in functions
+// ================================================
+
+// // color => mix(color1, color2)
+
+// .class {
+//   color: mix(red, yellow); // orange
+// }
+
+// ====================
+
+// // color => rgba(color, alpha) => alpha 0 to 1
+
+// .class {
+//   color: rgba(red, 0.5); // rgba(255, 0, 0, 0.5)
+// }
+
+// ====================
+
+// // list => length(list)
+
+// $list: red, green, blue;
+
+// .class {
+//   width: length($list); // 3
+//   width: calc(100% / length($list)); // 33.3333333333%
+// }
+
+// ====================
+
+// // list => join($list1, $list2, "separator")
+// //      => separator => space, slash, comma, auto
+
+// $list1: red, green;
+// $list2: blue, yellow;
+
+// .class {
+//   border-color: join($list1, $list2); // red, green, blue, yellow;
+//   border-color: join($list1, $list2, "space"); // red green blue yellow;
+// }
+
+// ====================
+
+// // list => append($list1, $val, "separator")
+// //      => separator => space, slash, comma, auto
+
+// $list: 10px, 15px 10px;
+
+// .class {
+//   padding: append($list, 15px, "space"); // 10px 15px 10px 15px;
+// }
+
+// ====================
+
+// // list => nth($list, number)
+
+// $list: red, green, blue;
+
+// .class {
+//   margin: nth($list, 1); // red
+//   margin: nth($list, 2); // green
+//   margin: nth($list, -1); // blue
+// }
+
+// ====================
+
+// // math => abs(number)
+// // math => ceil(number)
+// // math => round(number)
+// // math => min(numbersList...)
+// // math => max(number, number, ...)
+
+// $list: 10px, 15px, 20px;
+
+// .class {
+//   margin: abs(-10px); // 10px
+
+//   margin: ceil(10.123px); // 11px
+//   margin: floor(10.667px); // 10px
+
+//   margin: round(10.123px); // 10px
+//   margin: round(10.667px); // 11px
+
+//   margin: min($list...); // 10px
+//   margin: max(10px, 15px, 20px); // 20px
+// }
+
+// ====================
+
+// // string => quote(string)
+// // string => unquote(string)
+
+// .class {
+//   &::after {
+//     content: quote(ali); // "ali"
+//     content: unquote("ali"); // ali
+//   }
+// }
+
+// ====================
+
+// // string => str-index(string, substring)
+// // string => str-slice(string, start-at, end-at)
+// // string => to-upper-case(string)
+// // string => to-lower-case(string)
+
+// .class {
+//   &::after {
+//     content: str-index("ziad", "z"); // 1
+//     content: str-index("ziad", "d"); // 4
+//     content: str-slice("ziadahmed", 5); // ahmed
+//     content: str-slice("ziadahmed", 1, 4); // ziad => start, end include
+//     content: to-upper-case("ziad"); // ZIAD
+//     content: to-lower-case("ZIAD"); // ziad
+//   }
+// }
+
+// ====================
+
+// // map
+
+// $socials: (
+//   "facebook": blue,
+//   "youtube": red,
+//   "github": black,
+// );
+
+// .class {
+//   color: map-get($socials, facebook); // blue
+//   width: map-keys($socials); // "facebook", "youtube", "github"
+//   width: map-values($socials); // blue, red, black
+//   width: length(map-keys($socials)); // 3
+//   width: map-has-key($socials, facebook); // true
+// }
+
+// ====================
+
+// // map => map-merge($map1, $map2)
+// // map => map-remove($map, $key)
+
+// $colors1: (
+//   "one": blue,
+//   "two": red,
+// );
+
+// $colors2: (
+//   "three": green,
+//   "four": yellow,
+//   "five": black,
+// );
+
+// $merge-colors: (map-merge($colors1, $colors2));
+// $result: map-remove($colors2, five);
+
+// .class {
+//   &::after {
+//     content: map-keys($merge-colors); // "one", "two", "three", "four"
+//     content: map-values($merge-colors); // blue, red, green, yellow;
+//     content: map-keys($result); // "three", "four"
+//   }
+// }
+
+// ================================================
+// ================================================
+// ================================================
+// ================================================

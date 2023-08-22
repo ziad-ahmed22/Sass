@@ -1,0 +1,9 @@
+/// function
+/// @param {size}
+/// width
+/// @return {num}
+/// width / 2
+
+@function half($size) {
+  @return $size / 2;
+}
